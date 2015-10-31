@@ -14,9 +14,9 @@ Week of 10/19/2015.
 1. Setup MongoDB, Mongoose, and define your schema.
 1. Update each route to connect to the database and return JSON. Test with cURL, HTTPie, or Postman.
 
-# TODO
+# TO DO:
 
-1. Set up Project Structure
+1. **Set up Project Structure**
   - In terminal =
     ```
     yo galvanize-express
@@ -57,8 +57,19 @@ Week of 10/19/2015.
 
   ![Structure](./client/images/structure.png)
 
-2. Now find ``app.js`` under ``server`` directory. Place on top another requirement:
+  - **Commit!**
+
+2. Finish updating structure:
+  - Now find ``app.js`` under ``server`` directory. Place on top another requirement:
     ```
     var dotenv = require('dotenv');
     dotenv.load();
     ```
+  - Now place ``.env`` at the bottom of ``.gitignore`` file. We are setting up the environment variables and hiding them within the .gitignore file.
+  - Now add .env file to root directory through the terminal
+    ```
+    touch .env
+    ```
+  - **Commit!**
+
+2.
