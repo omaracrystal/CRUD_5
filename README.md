@@ -98,12 +98,9 @@ Week of 10/19/2015.
 
   // create new Schema, setting keys and value types
   var urlSchema = new Schema({
-      url: String,
+      link: String,
       title: String,
       description: String,
-      image: String,
-      dateSaved: Date.now,
-      datePublished: Date
   });
 
 
