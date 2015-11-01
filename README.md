@@ -183,7 +183,7 @@ Week of 10/19/2015.
 
 4. **Finish Route Structure and continue TESTING**
 
-  - We will be adding Mongoose functions to our database:
+  - We will be adding Mongoose functions to our routes to access the database:
       - url.find()
       - url.findById()
       - newUrl.save()
