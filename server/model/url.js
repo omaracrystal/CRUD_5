@@ -4,18 +4,11 @@ var Schema = mongoose.Schema;
 
 
 // create new Schema, setting keys and value types
-var urlSchema = new Schema({
-    url: String,
+var Url = new Schema({
+    link: String,
     title: String,
-    description: String,
-    image: String,
-    datePublished: Date
+    description: String
 });
-
-
-// create a model, which holds all of our Url information
-var Url = mongoose.model('urls', urlSchema);
-
 
 //* OPTIONAL *//
 // set up the connection to the local database, if it doesn't exist yet one will be created automatically
@@ -25,4 +18,4 @@ var Url = mongoose.model('urls', urlSchema);
 mongoose.connect(process.env.MONGO_URI);
 
 // make the Item Schema available to other files
-module.exports = Url;
+module.exports = mongoose.model("urls", Url)

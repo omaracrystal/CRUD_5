@@ -180,7 +180,7 @@ Week of 10/19/2015.
   module.exports = router;
   ```
 
-  - TEST the first Route by opening three terminal windows.
+  - **TEST** GET router by opening three terminal windows.
     1. ``sudo mongod``
     2. ``nodemon``
     3. ``http GET http://localhost:3000/api/urls``
@@ -189,48 +189,43 @@ Week of 10/19/2015.
   - **COMMIT!**
 
 
-4. **Finish Route Structure**
+4. **Finish Route Structure and continue TESTING**
 
-
-
-  ## TESTING and updating Routes
-  - Test in terminal or go to local host url in browser
-    ``sudo mongod`` in second terminal
-    ``nodemon`` in third terminal
-
-  - **Testing** in terminal the **GET router** ``http GET http://localhost:3000/api/urls``
+  - We will be adding Mongoose functions to our database:
+      - url.find()
+      - url.findById()
+      - newUrl.save()
+      - url.findByIdAndUpdate()
+      - url.findByIdAndRemove()
 
   - Set up **POST router** now:
-   - add new instance of the Schema within the post router and save it function
+  - Add new instance of the Schema within the post router and a 'save it' function
+
   ```
-     //post urls
-    router.post('/urls', function(req, res, next) {
-      // or var newurl = new url(req.body);
-      var newurl = new url ({
-        name: req.body.name,
-        age: req.body.age,
-        spitter: req.body.spitter
-      });
-      newurl.save(function(err, url) {
-        if (err) {
-          res.json({'message': err});
-        } else {
-          res.json(url) //data can be named anything
-        }
-      })
-    });
-  ```
-  **Testing POST router** in terminal:
-  ```
-    http POST http://localhost:3000/api/urls name="Tina" age=12 spitter=true``
-    or
-    http POST -f http://localhost:3000/api/urls name="Tina" age=12 spitter=true``
-    or
-    http POST --form http://localhost:3000/api/urls name="Tina" age=12 spitter=true``
+  //post urls
+  router.post('/urls', function(req, res, next) {
+    var newurl = new url(req.body);
+    newUrl.save(function(err, url) {
+      if (err) {
+        res.json({'message': err});
+      } else {
+        res.json(data) //data can be named anything
+      }
+    })
+  });
   ```
 
-  - Now update **GET aLL router**
-      - mongoose find function
+  - **TEST!** POST router in terminal:
+  ```
+    http POST http://localhost:3000/api/urls url="google.com" title="google" description="google search engine"``
+    or
+    http POST -f http://localhost:3000/api/urls ...``
+    or
+    http POST --form http://localhost:3000/api/urls ...``
+  ```
+
+  - Now update **GET ALL router** - with mongoose **find()** function
+
     ```
     router.get('/urls', function(req, res, next) {
         url.find(function(err, urls) {
@@ -242,12 +237,16 @@ Week of 10/19/2015.
         })
     });
     ```
-  **TESTING GET all router** in terminal:
-    ``http GET http://localhost:3000/api/urls``
+
+  **TEST!** GET all router in terminal:
+  ```
+  http GET http://localhost:3000/api/urls
+  ```
 
   - Helpful resource : [mongoosejs.com/docs/api.html](mongoosejs.com/docs/api.html)
 
-  - Set up **GET one router**
+  - Set up **GET one router** - with mongoose **findById()** function
+
   ```
     //get one url
     router.get('/url/:id', function(req, res, next) {
@@ -260,28 +259,37 @@ Week of 10/19/2015.
       })
     });
   ```
-  **TESTING GET one router** in terminal:
-    ``http GET http://localhost:3000/api/url/id#``
 
-  - Set up **PUT router**
+  **TEST!** GET one router in terminal:
   ```
-    //update one url
-    router.put('/url/:id', function(req, res, next) {
-      //adding {new:true} in the third passed agrument this will output the updates in the terminal instead of the original
-        var options = {new: true};
-      url.findByIdAndUpdate(req.params.id, req.body, options, function(err, url) {
-        if (err) {
-          res.json({'message': err});
-        } else {
-          res.json(url);
-        }
-      })
-    });
+  http GET http://localhost:3000/api/url/<id#>
   ```
-  **TESTING PUT router** in terminal:
-    ``http PUT http://localhost:3000/api/url/id# changes=change``
 
-  - Setting up **DELETE router**
+  - Set up **PUT router** - with mongoose **findByIdAndUpdate()** function
+
+  ```
+  //update one url
+  router.put('/url/:id', function(req, res, next) {
+    //adding {new:true} in the third passed agrument this will output the updates in the terminal instead of the original
+    var options = {new: true};
+    url.findByIdAndUpdate(req.params.id, req.body, options, function(err, url) {
+      if (err) {
+        res.json({'message': err});
+      } else {
+        res.json(url);
+      }
+    })
+  });
+  ```
+
+  **TEST!** PUT router in terminal:
+
+  ```
+  http PUT http://localhost:3000/api/url/<id#> changes=change
+  ```
+
+  - Set up **DELETE router** - with mongoose **findByIdAndRemove()** function
+
   ```
     //delete one url
     router.delete('/url/:id', function(req, res, next) {
@@ -294,28 +302,28 @@ Week of 10/19/2015.
       })
     });
   ```
-  **TESTING DELETE router** in terminal:
-    ``http DELETE http://localhost:3000/api/url/id#``
 
-  # Set up View
-  - Create Form, Table, whatever in ``index.html`` (or create a new html file) under ``views`` on the server side
+  **TEST!** DELETE router in terminal:
+
+  ```
+  http DELETE http://localhost:3000/api/url/<id#>
+  ```
+
+  ## Set up View
+  - Create Form, Table, whatever in ``index.html`` (or create a new html file) under ``views`` directory on the server side
   - Set up **ids** to each area of the form so that it points to each property of the **schema**
-  - We are going to use **JSON** to auto populate all urls below the form and so we attach the ``id="all-lamas"`` to a seperate div, table, whatever below the input form
+  - We are going to use **JSON** to auto populate all urls below the form and so we attach the ``id="all-urls"`` to a seperate div, table, whatever below the input form
   - Under client side in the ``main.js`` file add a ``payload`` to the "submit" form function. Then run tests throughout...
+
   ```
     $('form').on('submit', function(e){
         e.preventDefault();
         var payload = {
-            name: $('#name').val(),
-            age: $('#age').val(),
-            spitter: $('#spitter').val()
+            link: $('#link').val(),
+            title: $('#title').val(),
+            description: $('#description').val()
         };
 
-        if($('#spitter').is(:'checked')){
-            payload.spitter = true;
-        } else {
-                payload.spitter = false
-            }
         console.log(payload) //test here or httpie
 
         $.post('/api/urls', payload, function(data){
@@ -331,22 +339,22 @@ Week of 10/19/2015.
 
     + Define a function outside of submit so that it will append the urls
         + don't forget to call function in **document.ready** to pre-load the data
+
   ```
     function geturls(){
         //target table and clear out fields
         $('#all-urls').html('');
 
         //inside ajax and iterate over all the data (all the urls)
-        $.get('/api/llams', function(data) {
+        $.get('/api/urls', function(data) {
             //test = console.log(data)-- don't forget to call function
             for (var i=0; i < data.length; i++) {
                 $('#all-urls').append(
-                      '<tr><td>' + data[i].name + '</td><td>' + data[i].age + '</td><td>' + data[i].spitter + '</td></tr>'
+                      '<tr><td>' + data[i].link + '</td><td>' + data[i].title + '</td><td>' + data[i].description + '</td></tr>'
                 );
             }
             //clear out form and checkbox area
             $('form input').val('');
-            $('#spitter').removeAttr('checked');
         });
     }
   ```
@@ -354,10 +362,12 @@ Week of 10/19/2015.
   # THE END!
 
   **Quick Reference for testing routes in terminal**
+  - remember that if the value of the key is a boolean, number or other element besides a string then it does not need to be wrapped in quotes.
+
   ```
     http GET http://localhost:3000/api/urls
-    http GET http://localhost:3000/api/url/id#
-    http POST http://localhost:3000/api/urls name="Tina" age=12 spitter=true
-    http PUT http://localhost:3000/api/url/id# changes=change
-    http DELETE http://localhost:3000/api/url/id#
+    http GET http://localhost:3000/api/url/<id#>
+    http POST http://localhost:3000/api/urls link="google.com" title="google" description="google search engine"
+    http PUT http://localhost:3000/api/url/<id#> changes="change"
+    http DELETE http://localhost:3000/api/url/<id#>
   ```

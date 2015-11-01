@@ -1,43 +1,42 @@
 var express = require('express');
 var router = express.Router();
-var url = require('../model/url.js')
+var Url = require('../model/url.js')
 
 //Get all urls
 router.get('/urls', function(req, res, next){
-  res.send("hello");
-  // url.find({}, function(err, data){
-  //   if(err){
-  //       res.json({'message': err});
-  //   } else{
-  //     res.json(data);
-  //   }
-  //  });
+  Url.find({}, function(err, data){
+    if(err){
+        res.json({'message': err});
+    } else{
+      res.json(data);
+    }
+   });
 });
 
 //get one url
 router.get('/url/:id', function(req, res, next) {
-  url.findById(req.params.id, function(err, url) {
+  Url.findById(req.params.id, function(err, data) {
     if (err) {
       res.json({'message': err});
     } else {
-      res.json(url);
+      res.json(data);
     }
   })
 });
 
 //post urls
 router.post('/urls', function(req, res, next) {
-  // or var newurl = new url(req.body);
-  var newurl = new url ({
-    name: req.body.name,
-    age: req.body.age,
-    spitter: req.body.spitter
-  });
-  newurl.save(function(err, url) {
+  var newUrl = new Url(req.body);
+  // var newUrl = new Url ({
+  //   link: req.body.link,
+  //   title: req.body.title,
+  //   description: req.body.description
+  // });
+  newUrl.save(function(err, data) {
     if (err) {
       res.json({'message': err});
     } else {
-      res.json(url);
+      res.json(data);
     }
   })
 });
@@ -50,23 +49,23 @@ router.put('/url/:id', function(req, res, next) {
   //A.findByIdAndUpdate(id, update, options) // returns Query
   //A.findByIdAndUpdate(id, update, callback) // executes
   //adding {new:true} in the third passed agrument this will output the updates in the terminal instead of the original
-    var options = {new: true};
-  url.findByIdAndUpdate(req.params.id, req.body, options, function(err, url) {
+  var options = {new: true};
+  Url.findByIdAndUpdate(req.params.id, req.body, options, function(err, data) {
     if (err) {
       res.json({'message': err});
     } else {
-      res.json(url);
+      res.json(data);
     }
   })
 });
 
 //delete one url
 router.delete('/url/:id', function(req, res, next) {
-  url.findByIdAndRemove(req.params.id, function(err, url) {
+  Url.findByIdAndRemove(req.params.id, function(err, data) {
      if (err) {
         res.json({'message': err});
       } else {
-        res.json(url);
+        res.json(data);
       }
   })
 });
