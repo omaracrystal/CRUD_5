@@ -141,7 +141,7 @@ Week of 10/19/2015.
   ```
   var express = require('express');
   var router = express.Router();
-  var url = require('../model/urls.js')
+  var url = require('../model/url.js')
 
   ```
 
@@ -183,7 +183,7 @@ Week of 10/19/2015.
 
 4. **Finish Route Structure and continue TESTING**
 
-  - We will be adding Mongoose functions to our routes to access the database:
+  - We will be adding Mongoose functions to our routes in order to access the database:
       - url.find()
       - url.findById()
       - newUrl.save()
