@@ -97,16 +97,11 @@ Week of 10/19/2015.
 
 
   // create new Schema, setting keys and value types
-  var urlSchema = new Schema({
+  var Url = new Schema({
       link: String,
       title: String,
-      description: String,
+      description: String
   });
-
-
-  // create a model, which holds all of our Url information
-  var Url = mongoose.model('urls', urlSchema);
-
 
   //* OPTIONAL *//
   // set up the connection to the local database, if it doesn't exist yet one will be created automatically
@@ -116,7 +111,7 @@ Week of 10/19/2015.
   mongoose.connect(process.env.MONGO_URI);
 
   // make the Item Schema available to other files
-  module.exports = Url;
+  module.exports = mongoose.model("urls", Url)
   ```
 
   - In the ``.env`` file place on top:
